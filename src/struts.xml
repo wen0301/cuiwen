@@ -1,0 +1,203 @@
+<!DOCTYPE struts PUBLIC
+			"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+			"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="com" extends="struts-default">
+		<interceptors>
+			<interceptor name="security" class="com.xingyun.base.security.SecurityInterceptor"/>
+			<interceptor-stack name="securityStack">
+				<interceptor-ref name="defaultStack"/>
+				<interceptor-ref name="security"/>
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse,delete</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<!--默认拦截器-->
+		<default-interceptor-ref name="securityStack"/>
+		<!--全局页面-->
+		<global-results>
+ 			<result name="relogin" type="redirect">/</result>
+			<result name="del">/jsps/common/noexist.jsp</result>
+		</global-results>
+		
+		<!-- 星云首页 start -->
+		<action name="index|*" method="{1}" class="com.xingyun.actions.index.IndexAction">
+			<result name="index">/index.jsp</result>
+			<result name="indexTradeUserItem">/jsps/index/IndexTradeUserListItem.jsp</result>
+			<result name="indexVocationUserItem">/jsps/index/IndexVocationUserListItem.jsp</result>
+			<result name="showIndexWorksItem">/jsps/index/IndexWorksShowItem.jsp</result>
+			<result name="showRecommendWorks">/jsps/index/IndexRecommendWorksList.jsp</result>
+			<result name="showRecommendWorksItem">/jsps/index/IndexRecommendWorksItem.jsp</result>
+			<result name="showRecommendWorksNewItem">/jsps/index/IndexRecommendWorksNewItem.jsp</result>
+			<result name="showRecommendPindao">/jsps/index/IndexRecommendPindaoList.jsp</result>
+			<result name="showRecommendPindaoItem">/jsps/index/IndexRecommendPindaoItem.jsp</result>
+			<result name="showIndexXingGanYanAD">/jsps/index/IndexXingGanYanAD.jsp</result>
+			<result name="showHtmlHeader">/jsps/common/navigationBar.jsp?fromType=public</result>
+			<result name="showSwitchCity">/jsps/index/IndexSwitchCity.jsp</result>
+			<result name="changeSwitchCity" type="redirect">/index.action</result>
+			<result name="showRencaiList">/jsps/index/IndexRencaiList.jsp</result>
+			<result name="showRencaiListAjax">/jsps/index/IndexRencaiTrade.jsp</result>
+			<result name="showRencaiTebieListAjax">/jsps/index/IndexRencaiTebie.jsp</result>
+			<result name="showIndexNewDaxiaJingyin">/jsps/index/IndexNewDaxiaJingYingItem.jsp</result>
+			<result name="showIndexAdReview">/jsps/index/indexAdReview.jsp</result>
+			<result name="showIndexAdReviewItem">/jsps/index/indexAdReviewItem.jsp</result>
+		</action>
+		<!-- 星云首页 end -->
+		<!-- 我的星云首页 start -->
+		<action name="myIndex|*" method="{1}" class="com.xingyun.actions.index.MyIndexAction">
+			<result name="myIndex">/jsps/myindex/MyIndex.jsp</result>
+			<result name="dynamicListAjax">/jsps/myindex/MyIndexDynamicContent.jsp</result>
+			<result name="sysMessageList">/jsps/myindex/MyIndexSysMessage.jsp</result>
+			<result name="sysMessageListAjax">/jsps/myindex/MyIndexSysMessageContent.jsp</result>
+			<result name="recommendToUserList">/jsps/myindex/MyIndexRecommend.jsp</result>
+			<result name="recommendToUserListAjax">/jsps/myindex/MyIndexRecommendContent.jsp</result>
+			<result name="mayknowItem">/jsps/myindex/MyIndexMayknowItem.jsp</result>
+		</action>
+		<!-- 我的星云首页 end -->
+		<!-- 私信 start -->
+		<action name="messageUpdate|*" method="{1}" class="com.xingyun.actions.message.MessageUpdateAction">
+			<result name="showSummary">/jsps/message/MessageSummaryList.jsp</result>
+			<result name="showSummaryItem">/jsps/message/MessageSummaryItem.jsp</result>
+			<result name="showDialogue">/jsps/message/MessageDialogueList.jsp</result>
+			<result name="showDialogueItem">/jsps/message/MessageDialogueItem.jsp</result>
+			<result name="showMessageItem">/jsps/message/MessageItem.jsp</result>
+			<result name="showMessageFastItem">/jsps/message/MessageFastItem.jsp</result>
+			<result name="showbizSummary">/jsps/message/MessagebizSummaryList.jsp</result>
+			<result name="showbizDialogue">/jsps/message/MessagebizDialogueList.jsp</result>
+		</action>
+		<!-- 私信 end -->
+		<!-- 作品 start -->
+		<action name="postUpdate|*" method="{1}" class="com.xingyun.actions.post.PostUpdateAction">
+			<result name="showPostAddPage">/jsps/post/PostAdd.jsp</result>
+			<result name="showPostClassPage">/jsps/post/PostClassEdit.jsp</result>
+			<result name="showPostEditPage">/jsps/post/PostEdit.jsp</result>
+			<result name="showPostHuiShouListPage">/jsps/post/PostShowHuiShouListPage.jsp</result>
+			<result name="showCollectionPostList">/jsps/post/PostCollectionList.jsp</result>
+			<result name="showCollectionPostListAjax">/jsps/post/PostCollectionListContent.jsp</result>
+		</action>
+		<action name="postShow|*" method="{1}" class="com.xingyun.actions.post.PostShowAction">
+			<result name="showPostList">/jsps/post/PostShowPage.jsp</result>
+			<result name="showPostByIphone">/jsps/iphone/IphonePostShow.jsp</result>
+			<result name="zuoYouPostAjaxPage">/jsps/post/PostZuoYouShowView.jsp</result>
+			<result name="showPostListPage">/jsps/post/PostShowListPage.jsp</result>
+			<result name="postError">/jsps/post/PostError.jsp</result>
+		</action>
+		<!-- 作品 end -->
+		<!--图片预览 start -->
+		<action name="uploadPre|*" method="{1}" class="com.xingyun.upload.actions.UploadPreAction"></action>
+		<!--图片预览 end -->
+		<!--视频引用 start -->
+		<action name="video|*" method="{1}" class="com.xingyun.actions.video.VideoAction"></action>
+		<action name="commonAction|*" method="{1}" class="com.xingyun.actions.common.CommonAction">
+			<result name="showUserFloatLayer">/jsps/common/UserFloatLayerPop.jsp</result>
+		</action>
+		<!--新浪微连接 开始-->
+		<action name="sinaOauth|*" method="{1}" class="com.xingyun.actions.sinaoauth.SinaOauthAction">
+			<result name="callbackPop">/jsps/sinaoauth/SinaOauthCallBackPop.jsp</result>
+			<result name="inviteConnect">/jsps/sinaoauth/SinaOauthInviteConnect.jsp</result>
+		</action>
+		<!--新浪微连接  结束-->
+		<!-- 个人主页 start -->
+		<action name="profileShow|*" method="{1}" class="com.xingyun.actions.profile.ProfileShowAction">
+			<result name="success">/jsps/profile/ProfileIndexShow.jsp</result>
+			<result name="showProfileByIphone">/jsps/iphone/IphoneUserShow.jsp</result>
+			<result name="showLogo">/jsps/profile/ProfileLogoListPop.jsp</result>
+			<result name="showProfileModule">/jsps/profile/ProfileShowModule.jsp</result>
+		</action>
+		<action name="profileUpdate|*" method="{1}" class="com.xingyun.actions.profile.ProfileUpdateAction">
+			<result name="showLogoList">/jsps/profile/ProfileLogoList.jsp</result>
+			<result name="showFaceEditPage">/jsps/profile/ProfileFaceEdit.jsp</result>
+			<result name="showProfileEditPage">/jsps/profile/ProfileEditList.jsp</result>
+			<result name="showSetAccount">/jsps/profile/ProfileAccountList.jsp</result>
+			<result name="showSetContact">/jsps/profile/ProfileContactList.jsp</result>
+			<result name="showSetSystem">/jsps/profile/ProfileSystemList.jsp</result>
+			<result name="showMemberShip">/jsps/profile/ProfileMemberShipList.jsp</result>
+			<result name="showProfileOtherMoudle">/jsps/profile/ProfileOtherMoudle.jsp</result>
+			<result name="showProfileOtherEditPop">/jsps/profile/ProfileOtherEditPop.jsp</result>
+			<result name="showProfileOtherSortPage">/jsps/profile/ProfileOtherSortPop.jsp</result>
+			<result name="showProfileEditLeftPage">/jsps/profile/ProfileEditLeft.jsp</result>
+			<result name="showXyProxy">/jsps/common/XingYunProxy.jsp</result>
+			<result name="showPayUserPage">/jsps/profile/ProfilePayUserPage.jsp</result>
+			<result name="showEditCooperationPrice">/jsps/profile/ProfileCooperationPricePop.jsp</result>
+		</action>
+		<!-- 个人主页 end -->
+		<!-- 推荐 start -->
+		<action name="recommendShow|*" method="{1}" class="com.xingyun.actions.recommend.RecommendShowAction">
+			<result name="showRecommend">/jsps/recommend/RecommendList.jsp</result>
+			<result name="showRecommendPostAjax">/jsps/recommend/RecommendPostAjax.jsp</result>
+			<result name="showRecommendUserAjax">/jsps/recommend/RecommendUserAjax.jsp</result>
+			<result name="showRecommendToUserAjax">/jsps/recommend/RecommendToUserAjax.jsp</result>
+		</action>
+		<action name="recommendUpdate|*" method="{1}" class="com.xingyun.actions.recommend.RecommendUpdateAction">
+		</action>
+		<!-- 推荐 end -->
+		<!-- 用户技能职业 start -->
+		<action name="vocationUpdate|*" method="{1}" class="com.xingyun.actions.vocation.VocationUpdateAction">
+			<result name="showVocationEditPage">/jsps/vocation/VocationEdit.jsp</result>
+			<result name="savaSkillOK" type="redirect">/myIndex.action</result>
+		</action>
+		<!-- 用户技能职业 end -->
+		<!-- 关注 start -->
+		<action name="followShow|*" method="{1}" class="com.xingyun.actions.follow.FollowShowAction">
+			<result name="fansList">/jsps/follow/FollowFansList.jsp</result>
+			<result name="fansListItem">/jsps/follow/FollowFansItem.jsp</result>
+			<result name="followList">/jsps/follow/FollowUserList.jsp</result>
+			<result name="followListItem">/jsps/follow/FollowUserItem.jsp</result>
+			<result name="followUserSearchNickNameItem">/jsps/follow/FollowUserSearchItem.jsp</result>
+			<result name="followFansSearchNickNameItem">/jsps/follow/FollowFansSearchItem.jsp</result>
+		</action>
+		<action name="followUpdate|*" method="{1}" class="com.xingyun.actions.follow.FollowUpdateAction">
+			<result name="followDoubleList">/jsps/follow/FollowDoubleList.jsp</result>
+			<result name="followDoubleItem">/jsps/follow/FollowDoubleItem.jsp</result>
+			<result name="followDoubleSearchNickNameItem">/jsps/follow/FollowDoubleSearchItem.jsp</result>
+		</action>
+		<!-- 关注 end -->
+		<!-- 好友 start -->
+		<action name="friendUpdate|*" method="{1}" class="com.xingyun.actions.friend.FriendUpdateAction">
+			<result name="showFriend">/jsps/friend/FriendShowList.jsp</result>
+			<result name="showFriendItem">/jsps/friend/FriendShowItem.jsp</result>
+			<result name="showFriendRequest">/jsps/friend/FriendRequestShowList.jsp</result>
+			<result name="showFriendRequestItem">/jsps/friend/FriendRequestShowItem.jsp</result>
+			<result name="searchUser">/jsps/friend/FriendSearchItem.jsp</result>
+			<result name="showFriendSearchNickNameItem">/jsps/friend/FriendSearchNickNameItem.jsp</result>
+		</action>
+		<!-- 好友 end -->
+		<!-- 星语 start -->
+		<action name="xingyuShow|*" method="{1}" class="com.xingyun.actions.xingyu.XingyuShowAction">
+			<result name="showXingYuList">/jsps/xingyu/XingyuList.jsp</result>
+			<result name="showXingYuListAjax">/jsps/xingyu/XingyuListContent.jsp</result>
+			<result name="showXingYuZanCommentAjax">/jsps/xingyu/XingyuListContentComment.jsp</result>
+			<result name="showXingYuDetail">/jsps/xingyu/XingyuDetail.jsp</result>
+		</action>
+		<action name="xingyuUpdate|*" method="{1}" class="com.xingyun.actions.xingyu.XingyuUpdateAction">
+			<result name="xingyuTopicPop">/jsps/xingyu/XingyuTopicPop.jsp</result>
+			<result name="xingyuTopicDynamicPop">/jsps/xingyu/XingyuTopicDynamicPop.jsp</result>
+		</action>
+		<!-- 星语 end -->
+		<!-- 评论 start -->
+		<action name="commentShow|*" method="{1}" class="com.xingyun.actions.comment.CommentShowAction">
+			<result name="showPostComment">/jsps/comment/CommentPostItemShow.jsp</result>
+			<result name="showXingyuComment">/jsps/comment/CommentXingyuItemShow.jsp</result>
+		</action>
+		<action name="commentUpdate|*" method="{1}" class="com.xingyun.actions.comment.CommentUpdateAction">
+			<result name="showComments">/jsps/comment/CommentShowList.jsp</result>
+			<result name="showCommentsAjax">/jsps/comment/CommentShowListContent.jsp</result>
+			<result name="showPostCommentItem">/jsps/comment/CommentPostItem.jsp</result>
+			<result name="showXingyuCommentItem">/jsps/comment/CommentXingyunItem.jsp</result>
+		</action>
+		<!-- 评论 end -->
+		<!-- 赞 start -->
+		<action name="zanUpdate|*" method="{1}" class="com.xingyun.actions.zan.ZanUpdateAction">
+			<result name="showZan">/jsps/zan/ZanShowList.jsp</result>
+			<result name="showZanItem">/jsps/zan/ZanItemShowList.jsp</result>
+		</action>
+		<!-- 赞 end -->
+		<!-- 搜索 start -->
+		<action name="search|*" method="{1}" class="com.xingyun.actions.search.SearchAction">
+			<result name="showSearchUserPage">/jsps/search/SearchShowList.jsp</result>
+			<result name="showSearchUserPageAjax">/jsps/search/SearchShowItem.jsp</result>
+		</action>
+		<!-- 搜索 end -->
+	</package>
+</struts>

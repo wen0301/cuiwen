@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="build" name="xingyun">
+        <path id="xingyun.classpath">    
+                <fileset dir="WebRoot/WEB-INF/lib"/>   
+                <pathelement location="WebRoot/extLib/jsp-api.jar"/> 
+        </path>
+        <target name="clean">
+                <echo>clean...</echo>
+                <delete dir="WebRoot/WEB-INF/classes" />
+        </target>
+        <target name="init">
+                <echo>init...</echo>
+                <mkdir dir="WebRoot/WEB-INF/classes" />
+                <copy  todir="WebRoot/WEB-INF/classes">
+                    <fileset dir="src" excludes="**/*.java"/>
+                </copy>
+        </target>
+        <!--main-->
+        <target name="build" depends="clean,init">
+                <echo>main...</echo>
+                <javac srcdir="src" destdir="WebRoot/WEB-INF/classes" includeAntRuntime="false">        
+                    <compilerarg line="-encoding UTF-8"/>
+                    <classpath refid="xingyun.classpath"/>       
+                </javac>
+        </target>
+</project>
